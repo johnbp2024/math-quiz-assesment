@@ -62,27 +62,27 @@ high_num = 10
 
 operation_list = ["+", "-", "*"]
 
-rounds_played = rounds_lost + rounds_won
+rounds_played = 0
 
-random_operation = random.choice(operation_list)
-first_num = random.randint(low_num, high_num)
+round_history = ""
 
-second_num = random.randint(low_num, high_num)
+correct_or_not = ""
 
-default_game = yes_no("do you want default game settings?")
+game_history= []
+
+default_game = yes_no("do you want default game settings? (10 rounds)")
 if default_game == "yes":
     max_rounds = 10
 
 else:
-    max_rounds = int_check("enter the amount of questions you want up to 20 press enter for infinite", low=1, high=20,
-                           exit_code="")
+    max_rounds = int_check("enter the amount of questions you want up to 20", low=1, high=20)
 
 # main game loop
 
-while rounds_played + 1 < max_rounds:
+while rounds_played + 1  < max_rounds:
     random_operation = random.choice(operation_list)
     first_num = random.randint(low_num, high_num)
-
+    rounds_played = rounds_lost + rounds_won
     second_num = random.randint(low_num, high_num)
 
     print(f"{first_num} {random_operation} {second_num}")
@@ -90,13 +90,25 @@ while rounds_played + 1 < max_rounds:
     player_input = int_check("what do you think the answer is?")
     if player_input == answer:
         rounds_won += 1
-        print(f"won {rounds_won}")
-        print(rounds_played)
+        print("correct answer!")
+        correct_or_not = "correct"
+
     else:
         print("wrong answer, sorry")
         rounds_lost += 1
-        print(f"lost {rounds_lost}")
-        print(rounds_played)
+        correct_or_not = "incorrect"
+    round_history =(f"round: {rounds_played + 1}. {first_num} {random_operation} {second_num} = {answer} "
+                    f"you got it {correct_or_not}")
+    game_history.append(round_history)
+
+
+
+
+history = yes_no("do you want to see game history?")
+if history == "yes":
+    print(f"you won:{rounds_won} out of {rounds_played + 1} rounds")
+    print(game_history)
+
 
 
 
