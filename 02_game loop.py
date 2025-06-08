@@ -70,10 +70,11 @@ correct_or_not = ""
 
 game_history= []
 
+#checking if they want default settings
 default_game = yes_no("do you want default game settings? (10 rounds)")
 if default_game == "yes":
     max_rounds = 10
-
+#asking how many rounds they want
 else:
     max_rounds = int_check("enter the amount of questions you want up to 20", low=1, high=20)
 
@@ -98,12 +99,12 @@ while rounds_played + 1  < max_rounds:
         rounds_lost += 1
         correct_or_not = "incorrect"
     round_history =(f"round: {rounds_played + 1}. {first_num} {random_operation} {second_num} = {answer} "
-                    f"you got it {correct_or_not}")
+                       f"you got it {correct_or_not}")
     game_history.append(round_history)
 
 
 
-
+#asking if they want to see history
 history = yes_no("do you want to see game history?")
 if history == "yes":
     print(f"you won:{rounds_won} out of {rounds_played + 1} rounds")
